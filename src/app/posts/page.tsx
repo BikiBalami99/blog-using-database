@@ -1,9 +1,9 @@
-import { getPosts } from "@/api/posts"
-import { getUsers } from "@/api/users"
-import { FormGroup } from "@/components/FormGroup"
-import { PostCard, SkeletonPostCard } from "@/components/PostCard"
-import { SkeletonList } from "@/components/Skeleton"
-import { Suspense } from "react"
+import { getPosts } from "@/db/posts";
+import { getUsers } from "@/db/users";
+import { FormGroup } from "@/components/FormGroup";
+import { PostCard, SkeletonPostCard } from "@/components/PostCard";
+import { SkeletonList } from "@/components/Skeleton";
+import { Suspense } from "react";
 
 export default function PostsPage() {
   return (
@@ -24,13 +24,13 @@ export default function PostsPage() {
         </Suspense>
       </div>
     </>
-  )
+  );
 }
 
 async function PostGrid() {
-  const posts = await getPosts()
+  const posts = await getPosts();
 
-  return posts.map(post => <PostCard key={post.id} {...post} />)
+  return posts.map((post) => <PostCard key={post.id} {...post} />);
 }
 
 function SearchForm() {
@@ -52,20 +52,20 @@ function SearchForm() {
         <button className="btn">Filter</button>
       </div>
     </form>
-  )
+  );
 }
 
 async function UserSelect() {
-  const users = await getUsers()
+  const users = await getUsers();
 
   return (
     <>
       <option value="">Any</option>
-      {users.map(user => (
+      {users.map((user) => (
         <option key={user.id} value={user.id}>
           {user.name}
         </option>
       ))}
     </>
-  )
+  );
 }
